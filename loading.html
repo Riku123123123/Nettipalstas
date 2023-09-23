@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lataus...</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .loader {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 0.5s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="loader"></div>
+</body>
+</html>
+
+<!-- Tässä voit halutessasi lisätä muita sivun elementtejä -->
+
+<!-- Lisää tämä rivi ennen sivun varsinaista sisältöä -->
+<div id="loading-container"></div>
+
+<!-- Sivun varsinaiset sisällöt -->
+
+<!-- Voit lisätä muita sivun elementtejä tähän -->
+
+<!-- Lataa JavaScriptin avulla latausnäyttö, kun sivu on valmis latautumaan -->
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const loadingContainer = document.getElementById('loading-container');
+        loadingContainer.innerHTML = '<iframe src="loading.html" frameborder="0" style="position: absolute; width: 100%; height: 100%;"></iframe>';
+    });
+</script>
+
+<!-- Tässä voit halutessasi lisätä muita sivun elementtejä -->
+
+<script>
+    setTimeout(function() {
+        // Ohjaa käyttäjä kirjautumissivulle (korvaa 'kirjautumissivun-url' oikealla URL-osoitteella)
+        window.location.href = 'Nettisivu.html';
+    }, 3000); // Aika millisekunteina (esim. 3000 ms = 3 sekuntia)
+</script>
+
