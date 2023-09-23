@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Viestisivu</title>
+    <style>
+        /* Ulkoasun määritykset */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        
+        #seinä {
+            width: 80%;
+            padding: 20px;
+            border: 2px solid cyan;
+            text-align: center;
+            background-color: white;
+        }
+
+        /* Lisätään tyyli valikolle */
+        #profiili-valikko {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-bottom: 2px solid cyan;
+        }
+
+        #profiili-valikko button {
+            margin-left: 10px;
+        }
+
+        #kirjoitusboxi {
+            border: 2px solid cyan;
+            border-left: none;
+            padding: 10px;
+            width: 100%;
+        }
+
+        #viesti-lomake {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        #viesti {
+            width: 100%;
+        }
+
+        #viestit {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .viesti-laatikko {
+            background-color: cyan;
+            padding: 5px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            border: 2px solid blue;
+            position: absolute;
+            display: flex; /* Lisätty flex-sijoittelu */
+            align-items: center; /* Keskittää tekstiä vaakasuunnassa */
+            justify-content: center; /* Keskittää tekstiä pystysunnassa */
+            text-align: center; /* Keskitä teksti vaakasuunnassa */
+            left: 50%; /* Aseta alkupaikka vaakasuunnassa keskelle */
+            top: 50%; /* Aseta alkupaikka pystysunnassa keskelle */
+            transform: translate(-50%, -50%); /* Siirrä keskustaan */
+        }
+
+        /* Lisätään tyyli käyttäjänimelle ja profiilikuvan kehykselle */
+        #kayttajanimi {
+            font-weight: bold;
+        }
+
+        #profiilikuva {
+            max-width: 50px;
+            max-height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="profiili-valikko">
+        <!-- Lisää tähän koodi profiilikuvan ja nimen vaihtamista varten -->
+        <button id="vaihda-nimi">Vaihda nimi</button>
+        <button id="vaihda-kuva">Vaihda kuva</button>
+    </div>
+
+    <div id="seinä">
+        <h1>Viestisivu</h1>
+
+        <form id="viesti-lomake">
+            <label for="viesti">Kirjoita viesti:</label>
+            <input type="text" id="viesti" required>
+            <button type="submit">Lähetä</button>
+        </form>
+
+        <div id="viestit">
+            <!-- Tähän tulee näkyviin lähetetyt viestit -->
+        </div>
+    </div>
+
+    <script>
+        // Käyttäjän tiedot (korvaa oikeilla tiedoilla)
+        let kayttajanNimi = "Esimerkki Käyttäjä";
+        let profiilikuvaUrl = "profiilikuva.jpg"; // Voit käyttää URLia
+
+        const viestiLomake = document.getElementById("viesti-lomake");
+        const viestiKentta = document.getElementById("viesti");
+        const viestitDiv = document.getElementById("viestit");
+
+        viestiLomake.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const viesti = viestiKentta.value;
+            if (viesti.trim() !== "") {
+                const viestiLaatikko = document.createElement("div");
+                viestiLaatikko.className = "viesti-laatikko";
+
+                // Lisää käyttäjänimi ja profiilikuva viestiin
+                viestiLaatikko.innerHTML = `
+                    <img id="profiilikuva" src="${profiilikuvaUrl}" alt="Profiilikuva">
+                    <span id="kayttajanimi">${kayttajanNimi}:</span>
+                    <div>${viesti}</div> <!-- Muutettu div-elementiksi -->
+                `;
+
+                const x = Math.random() * (window.innerWidth - 200);
+                const y = Math.random() * (window.innerHeight - 100);
+
+                viestiLaatikko.style.left = x + "px";
+                viestiLaatikko.style.top = y + "px";
+
+                viestitDiv.appendChild(viestiLaatikko);
+                viestiKentta.value = "";
+            }
+        });
+
+        // Lisää tähän koodi profiilikuvan ja nimen vaihtamiseksi
+        const vaihdaNimiButton = document.getElementById("vaihda-nimi");
+        const vaihdaKuvaButton = document.getElementById("vaihda-kuva");
+
+        vaihdaNimiButton.addEventListener("click", function () {
+            const uusiNimi = prompt("Anna uusi nimi:");
+            if (uusiNimi !== null && uusiNimi.trim() !== "") {
+                kayttajanNimi = uusiNimi;
+                päivitäProfiili();
+            }
+        });
+
+        vaihdaKuvaButton.addEventListener("click", function () {
+            const uusiKuvaUrl = prompt("Anna uusi profiilikuva URL:");
+            if (uusiKuvaUrl !== null && uusiKuvaUrl.trim() !== "") {
+                profiilikuvaUrl = uusiKuvaUrl;
+                päivitäProfiili();
+            }
+        });
+
+        // Päivitä käyttäjän nimi ja profiilikuva
+        function päivitäProfiili() {
+            const profiilikuva = document.getElementById("profiilikuva");
+            const kayttajanimiElementti = document.getElementById("kayttajanimi");
+            profiilikuva.src = profiilikuvaUrl;
+            kayttajanimiElementti.textContent = kayttajanNimi;
+        }
+    </script>
+</body>
+</html>
